@@ -8,14 +8,18 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 direction = new Vector3();
     Rigidbody rGB;
-
     Transform camTransform;
+    Animator animator;
 
-    public float speed = 5f; 
+    public float speed = 5f;
+    public float jumpHeight = 20f;
+    public int jumpCount;
+    public bool isOnGround = true;
 
     private void Awake()
     {
         rGB = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Start is called before the first frame update
@@ -28,11 +32,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         direction = ((camTransform.forward * Input.GetAxis("Vertical")) + (camTransform.forward * Input.GetAxis("Horizontal"))) * speed;
+        
     }
 
     private void FixedUpdate()
 
-        // revoir cette ligne 
+        
     {   direction.y = rGB.velocity.y;
         rGB.velocity = direction;
 
@@ -45,5 +50,26 @@ public class PlayerMovement : MonoBehaviour
             rGB.rotation = rotation;
 
         }
+
+        if (Input.GetButton("Jump") && isOnGround)
+        {
+            rGB.AddForce(transform.up * jumpHeight);
+        }
+
+        if (Input.GetButton("Fire2")) //left ALT
+        {
+            Debug.Log("Crouch");
+            //animator.SetBool("Sneak", true);
+            animator.SetTrigger("Sneak");
+            speed /= 2;
+            
+        }
+
+        
+
+
+
     }
+
+
 }
