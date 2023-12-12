@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
     public float jumpHeight = 20f;
     public int jumpCount;
-    public bool isOnGround = true;
+    public LayerMask jumpMask;
 
     private void Awake()
     {
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetButton("Jump") && isOnGround)
+        if (Input.GetButton("Jump"))
         {
             rGB.AddForce(transform.up * jumpHeight);
         }
@@ -62,10 +62,12 @@ public class PlayerMovement : MonoBehaviour
             //animator.SetBool("Sneak", true);
             animator.SetTrigger("Sneak");
             speed /= 2;
-            
+    
         }
 
-        
+
+
+
 
 
 
