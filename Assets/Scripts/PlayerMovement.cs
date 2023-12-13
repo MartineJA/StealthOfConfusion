@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 5f;
     public float jumpHeight = 20f;
-    public int jumpCount;
+
     public LayerMask jumpMask;
 
     private void Awake()
