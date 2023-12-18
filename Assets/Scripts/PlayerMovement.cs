@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private enum PlayerMove
+        {
+            IDLE,
+            WALK,
+            RUN        
+        }
+    private PlayerMove currentMove;
 
     Vector3 direction = new Vector3();
     Rigidbody rGB;
@@ -22,16 +29,19 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         camTransform = Camera.main.transform;
+        TransitionToState(PlayerMove.IDLE);
     }
 
     // Update is called once per frame
     void Update()
     {
-        direction = ((camTransform.forward * Input.GetAxis("Vertical")) + (camTransform.forward * Input.GetAxis("Horizontal"))) * speed;
+        direction = ((camTransform.forward * Input.GetAxis("Vertical")) + (camTransform.right * Input.GetAxis("Horizontal"))) * speed;
         
     }
 
@@ -60,11 +70,50 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Crouch");
             //animator.SetBool("Sneak", true);
-            animator.SetTrigger("Sneak");
+            animator.SetBool("iSneaking", true);
             speed /= 2;
     
         }
 
     }
+
+    private void OnStateEnter()
+    {
+        switch(currentMove) 
+        
+        {
+            case PlayerMove.IDLE:{ break; }
+            case PlayerMove.WALK: { break; }
+            case PlayerMove.RUN: { break; }
+        }
+    }
+    private void OnStateUpdate()
+    {
+        switch (currentMove)
+
+        {
+            case PlayerMove.IDLE: { break; }
+            case PlayerMove.WALK: { break; }
+            case PlayerMove.RUN: { break; }
+        }
+    }
+    private void OnStateExit()
+    {
+        switch (currentMove)
+
+        {
+            case PlayerMove.IDLE: { break; }
+            case PlayerMove.WALK: { break; }
+            case PlayerMove.RUN: { break; }
+        }
+    }
+
+    private void TransitionToState(PlayerMove ToState)
+    {
+        OnStateExit();  
+        currentMove = ToState;
+        OnStateEnter();
+    }
+
 
 }
