@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - ZoneA
+  - ZoneB
+  - Ennemi
   layers:
   - Default
   - TransparentFX
